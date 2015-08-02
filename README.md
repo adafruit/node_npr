@@ -1,6 +1,6 @@
 # Node.js NPR API [![Build Status](https://travis-ci.org/adafruit/node_npr.svg?branch=master)](https://travis-ci.org/adafruit/node_npr)
 
-A Node.js wrapper for NPR APIs.
+A Node.js package for accessing NPR APIs.
 
 ## Installation
 
