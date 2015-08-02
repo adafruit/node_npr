@@ -28,14 +28,78 @@ describe('NPR One', function() {
 
   describe('Authorization', function() {
 
-    it('should get an access token', function(done) {
+    it('should get an access token using password grant type', function(done) {
 
       npr.one.authorization
        .createToken(npr.one.credentials)
        .then(function(res) {
 
          if(! res.access_token)
-           done('missing token');
+           done('missing access token');
+
+         done();
+
+       }).catch(done);
+
+    });
+
+  });
+
+  describe('Listening', function() {
+
+    it('should get channels', function(done) {
+
+      npr.one.listening
+       .getChannels()
+       .then(function(res) {
+
+         if(! res.items.length)
+           done('missing channels');
+
+         done();
+
+       }).catch(done);
+
+    });
+
+    it('should get history', function(done) {
+
+      npr.one.listening
+       .getHistory()
+       .then(function(res) {
+
+         if(! res.items.length)
+           done('missing history');
+
+         done();
+
+       }).catch(done);
+
+    });
+
+    it('should get recommendations', function(done) {
+
+      npr.one.listening
+       .getRecommendations({channel: 'npr'})
+       .then(function(res) {
+
+         if(! res.items.length)
+           done('missing recommendations');
+
+         done();
+
+       }).catch(done);
+
+    });
+
+    it('should get search recommendations', function(done) {
+
+      npr.one.listening
+       .getSearchRecommendations({searchTerms: 'dog'})
+       .then(function(res) {
+
+         if(! res.items.length)
+           done('missing search recommendations');
 
          done();
 
