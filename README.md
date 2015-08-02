@@ -52,7 +52,9 @@ var npr = NPR({
 // promises are [the] shit.
 // we speak the way we breathe.
 npr.one.init()
-  .then(npr.one.listening.getRecommendations({ channel: 'npr' }))
+  .then(function() {
+    return npr.one.listening.getRecommendations({ channel: 'npr' });
+  })
   .then(function(recommendations) {
     // print out the first two recommendations to the console
     console.log(recommendations.items.slice(0,2));
