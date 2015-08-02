@@ -35,7 +35,7 @@ describe('NPR One', function() {
        .then(function(res) {
 
          if(! res.access_token)
-           done('missing access token');
+           return done('missing access token');
 
          done();
 
@@ -54,7 +54,7 @@ describe('NPR One', function() {
        .then(function(res) {
 
          if(! res.items.length)
-           done('missing channels');
+           return done('missing channels');
 
          done();
 
@@ -69,7 +69,7 @@ describe('NPR One', function() {
        .then(function(res) {
 
          if(! res.items.length)
-           done('missing history');
+           return done('missing history');
 
          done();
 
@@ -84,7 +84,7 @@ describe('NPR One', function() {
        .then(function(res) {
 
          if(! res.items.length)
-           done('missing recommendations');
+           return done('missing recommendations');
 
          done();
 
@@ -99,7 +99,7 @@ describe('NPR One', function() {
        .then(function(res) {
 
          if(! res.items.length)
-           done('missing search recommendations');
+           return done('missing search recommendations');
 
          done();
 
