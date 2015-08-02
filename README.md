@@ -52,6 +52,32 @@ Then you can run this example by running:
 $ node index.js
 ```
 
+## NPR ONE APIs
+
+More information about the NPR One API can be found at the [NPR One Developer Center](http://dev.npr.org/api/).
+
+* Authorization
+  * `npr.one.authorization.createToken()`
+  * `npr.one.authorization.generateDeviceCode()`
+  * `npr.one.authorization.getAuthorizationPage()`
+* Identity
+  * `npr.one.identity.getUser()`
+  * `npr.one.identity.postFollowing()`
+  * `npr.one.identity.updateFollowingStatus()`
+  * `npr.one.identity.updateStations()`
+* Listening
+  * `npr.one.listening.getAggRecommendations()`
+  * `npr.one.listening.getChannels()`
+  * `npr.one.listening.getHistory()`
+  * `npr.one.listening.getRecommendations()`
+  * `npr.one.listening.getSearchRecommendations()`
+  * `npr.one.listening.postRating()`
+* Local Activation
+  * `npr.one.localactivation.sendDonationEmail()`
+* Sponsorship
+  * `npr.one.sponsorship.getAds()`
+  * `npr.one.sponsorship.receiveAdTracking()`
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing
 coding style. Add unit tests for any new or changed functionality.
