@@ -1,28 +1,28 @@
 {
-  "name": "npr-one",
+  "name": "npr",
   "version": "0.1.0",
-  "description": "Node.js NPR One API client",
+  "description": "Node.js NPR API client",
   "main": "index.js",
   "scripts": {
     "test": "gulp test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adafruit/npr_one.git"
+    "url": "git+https://github.com/adafruit/npr.git"
   },
   "keywords": [
     "npr",
-    "one",
     "national",
     "public",
-    "radio"
+    "radio",
+    "npr one"
   ],
   "author": "Todd Treece <todd@uniontownlabs.org>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/adafruit/npr_one/issues"
+    "url": "https://github.com/adafruit/npr/issues"
   },
-  "homepage": "https://github.com/adafruit/npr_one#readme",
+  "homepage": "https://github.com/adafruit/npr#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-jshint": "^1.11.2",
