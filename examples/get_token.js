@@ -45,6 +45,7 @@ npr.one.init()
   })
   .then(function(res) {
     console.log('ACCESS TOKEN: ' + res.access_token);
+    process.exit();
   })
   .catch(function(err) {
     console.log(err.statusText);
