@@ -1,6 +1,6 @@
 {
   "name": "npr-api",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "Node.js NPR API client",
   "main": "index.js",
   "scripts": {
