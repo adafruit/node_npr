@@ -30,7 +30,78 @@ to use the `grant_type` of *password* to get new OAuth access tokens. The other 
 
 ### Example
 
-First, you will need to create a new file called `index.js` in your favorite text editor.
+First, you will need to create a new file called `get_token.js` in your favorite text editor.
+
+```
+$ vim get_token.js
+```
+
+Then, paste the example below into the file and update the creditials to match your NPR Developer account info.
+
+```
+var NPR = require('../index'),
+    npr = NPR();
+
+var client_id = 'your_oauth_client_id',
+    client_secret = 'your_oauth_client_secret';
+
+npr.one.init()
+   .then(function() {
+
+     return npr.one.authorization
+      .generateDeviceCode({
+         client_id: client_id,
+         client_secret: client_secret,
+         scope: 'listening.write identity.readonly'
+       });
+
+   })
+  .then(function(res) {
+
+    return new Promise(function(resolve, reject) {
+
+      console.log('Please visit the following URL:');
+      console.log(res.verification_uri + '\n');
+      console.log('Enter code: ' + res.user_code + '\n');
+      console.log('Press the Spacebar when complete.');
+
+      process.stdin.setRawMode(true);
+      process.stdin.resume();
+
+      process.stdin.on('data', function() {
+        resolve(res.device_code);
+      });
+
+    });
+
+  })
+  .then(function(code) {
+    return npr.one.authorization
+      .createToken({
+         grant_type: 'device_code',
+         client_id: client_id,
+         client_secret: client_secret,
+         code: code
+       });
+  })
+  .then(function(res) {
+    console.log('ACCESS TOKEN: ' + res.access_token);
+    process.exit();
+  })
+  .catch(function(err) {
+    console.log(err.statusText);
+    process.exit(1);
+  });
+```
+
+Then, run the example using `node`.
+
+```
+$ node get_token.js
+```
+
+You will only need this once to get an access token to use from
+now on. Next, you will need to create a new file called `index.js` in your favorite text editor.
 
 ```
 $ vim index.js
@@ -39,19 +110,13 @@ $ vim index.js
 Then, paste the example below into the file and update the creditials to match your NPR Developer account info.
 
 ```
-var NPR = require('npr-api');
+var NPR = require('npr-api'),
+    npr = NPR();
 
-// edit the credentials to match your account info.
-var npr = NPR({
-  client_id: 'your_client_id',
-  client_secret: 'your_client_secret',
-  username: 'npr_username',
-  password: 'npr_password'
-});
+// paste in your token here
+var token = 'access_token_from_step_1';
 
-// promises are [the] shit.
-// we speak the way we breathe.
-npr.one.init()
+npr.one.init(token)
   .then(function() {
     return npr.one.listening.getRecommendations({ channel: 'npr' });
   })
@@ -59,7 +124,6 @@ npr.one.init()
     // print out the first two recommendations to the console
     console.log(recommendations.items.slice(0,2));
   }).catch(console.err);
-
 ```
 
 Then, run the example using `node`.
