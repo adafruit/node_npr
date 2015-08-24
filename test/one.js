@@ -11,12 +11,7 @@ describe('NPR One', function() {
 
     it('should create a client', function(done) {
 
-      npr = NPR({
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
-        username: process.env.NPR_USERNAME,
-        password: process.env.NPR_PASSWORD
-      });
+      npr = NPR();
 
       npr.one.init()
         .then(function() { done(); })
@@ -31,11 +26,19 @@ describe('NPR One', function() {
     it('should get an access token using password grant type', function(done) {
 
       npr.one.authorization
-       .createToken(npr.one.credentials)
+       .createToken({
+          grant_type: 'password',
+          client_id: process.env.CLIENT_ID,
+          client_secret: process.env.CLIENT_SECRET,
+          username: process.env.NPR_USERNAME,
+          password: process.env.NPR_PASSWORD
+        })
        .then(function(res) {
 
          if(! res.access_token)
            return done('missing access token');
+
+         npr.one.setAccessToken(res.access_token);
 
          done();
 
