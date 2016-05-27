@@ -1,8 +1,8 @@
-var NPR = require('../index'),
-    npr = NPR();
+const NPR = require('../index'),
+      npr = new NPR();
 
-var client_id = process.env.CLIENT_ID || 'your_oauth_client_id',
-    client_secret = process.env.CLIENT_SECRET || 'your_oauth_client_secret';
+const client_id = process.env.CLIENT_ID || 'your_oauth_client_id',
+      client_secret = process.env.CLIENT_SECRET || 'your_oauth_client_secret';
 
 npr.one.init()
    .then(function() {
@@ -20,8 +20,8 @@ npr.one.init()
     return new Promise(function(resolve, reject) {
 
       console.log('Please visit the following URL:');
-      console.log(res.verification_uri + '\n');
-      console.log('Enter code: ' + res.user_code + '\n');
+      console.log(`${res.verification_uri}\n`);
+      console.log(`Enter code: ${res.user_code}\n`);
       console.log('Press the Spacebar when complete.');
 
       process.stdin.setRawMode(true);
@@ -44,7 +44,7 @@ npr.one.init()
        });
   })
   .then(function(res) {
-    console.log('ACCESS TOKEN: ' + res.access_token);
+    console.log(`ACCESS TOKEN: ${res.access_token}`);
     process.exit();
   })
   .catch(function(err) {

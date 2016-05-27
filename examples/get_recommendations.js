@@ -1,8 +1,8 @@
-var NPR = require('../index'),
-    npr = NPR();
+const NPR = require('../index'),
+      npr = new NPR();
 
-// paste in your token here
-var token = process.env.ACCESS_TOKEN || 'access_token_from_step_1';
+// paste in your token here or use env var
+const token = process.env.ACCESS_TOKEN || 'access_token_from_step_1';
 
 npr.one.init(token)
   .then(function() {
