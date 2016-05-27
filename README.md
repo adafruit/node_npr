@@ -37,11 +37,11 @@ $ vim get_token.js
 Then, paste the example below into the file and update the creditials to match your NPR Developer account info.
 
 ```js
-const NPR = require('../index'),
+const NPR = require('npr-api'),
       npr = new NPR();
 
-const client_id = process.env.CLIENT_ID || 'your_oauth_client_id',
-      client_secret = process.env.CLIENT_SECRET || 'your_oauth_client_secret';
+const client_id = 'your_oauth_client_id',
+      client_secret = 'your_oauth_client_secret';
 
 npr.one.init()
    .then(function() {
@@ -108,11 +108,11 @@ $ vim get_recommendations.js
 Then, paste the example below into the file and update the creditials to match your NPR Developer account info.
 
 ```js
-const NPR = require('../index'),
+const NPR = require('npr-api'),
       npr = new NPR();
 
-// paste in your token here or use env var
-const token = process.env.ACCESS_TOKEN || 'access_token_from_step_1';
+// paste in your token here
+const token = 'access_token_from_step_1';
 
 npr.one.init(token)
   .then(function() {
