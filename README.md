@@ -9,7 +9,7 @@ the latest stable version of [node.js](https://nodejs.org).
 
 ```
 $ node -v
-v0.12.7
+v6.2.0
 ```
 
 ## Installation
@@ -25,25 +25,23 @@ As of right now, the full [NPR One API](http://dev.npr.org/api/) is available in
 It is also set up in a way where it will support the future addition of other [NPR 'Open APIs'](http://www.npr.org/templates/apidoc/)
 by adding additional API modules to the `lib/` folder.
 
-**Note:** The only known limitation is that NPR One API module included in this package currently expects
-to use the `grant_type` of *password* to get new OAuth access tokens. The other authentication methods will be supported soon.
 
 ### Example
 
 First, you will need to create a new file called `get_token.js` in your favorite text editor.
 
-```
+```sh
 $ vim get_token.js
 ```
 
 Then, paste the example below into the file and update the creditials to match your NPR Developer account info.
 
-```
-var NPR = require('../index'),
-    npr = NPR();
+```js
+const NPR = require('../index'),
+      npr = new NPR();
 
-var client_id = 'your_oauth_client_id',
-    client_secret = 'your_oauth_client_secret';
+const client_id = process.env.CLIENT_ID || 'your_oauth_client_id',
+      client_secret = process.env.CLIENT_SECRET || 'your_oauth_client_secret';
 
 npr.one.init()
    .then(function() {
@@ -61,8 +59,8 @@ npr.one.init()
     return new Promise(function(resolve, reject) {
 
       console.log('Please visit the following URL:');
-      console.log(res.verification_uri + '\n');
-      console.log('Enter code: ' + res.user_code + '\n');
+      console.log(`${res.verification_uri}\n`);
+      console.log(`Enter code: ${res.user_code}\n`);
       console.log('Press the Spacebar when complete.');
 
       process.stdin.setRawMode(true);
@@ -85,7 +83,7 @@ npr.one.init()
        });
   })
   .then(function(res) {
-    console.log('ACCESS TOKEN: ' + res.access_token);
+    console.log(`ACCESS TOKEN: ${res.access_token}`);
     process.exit();
   })
   .catch(function(err) {
@@ -96,25 +94,25 @@ npr.one.init()
 
 Then, run the example using `node`.
 
-```
+```sh
 $ node get_token.js
 ```
 
 You will only need this once to get an access token to use from
-now on. Next, you will need to create a new file called `index.js` in your favorite text editor.
+now on. Next, you will need to create a new file called `get_recommendations.js` in your favorite text editor.
 
-```
-$ vim index.js
+```sh
+$ vim get_recommendations.js
 ```
 
 Then, paste the example below into the file and update the creditials to match your NPR Developer account info.
 
-```
-var NPR = require('npr-api'),
-    npr = NPR();
+```js
+const NPR = require('../index'),
+      npr = new NPR();
 
-// paste in your token here
-var token = 'access_token_from_step_1';
+// paste in your token here or use env var
+const token = process.env.ACCESS_TOKEN || 'access_token_from_step_1';
 
 npr.one.init(token)
   .then(function() {
@@ -129,7 +127,7 @@ npr.one.init(token)
 Then, run the example using `node`.
 
 ```
-$ node index.js
+$ node get_recommendations.js
 ```
 
 You should then see a couple of the listening recommendations for your NPR account dumped to your terminal's `stdout`.
