@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "bunyan": "^1.4.0",
-    "es6-shim": "^0.32.2",
     "swagger-client": "^2.1.2"
   }
 }

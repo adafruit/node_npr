@@ -1,35 +1,7 @@
 require('dotenv').load();
 
 var gulp = require('gulp'),
-    jshint = require('gulp-jshint'),
     mocha = require('gulp-mocha');
-
-gulp.task('lint', function() {
-
-  var lint = jshint({
-    "curly": false,
-    "eqeqeq": true,
-    "immed": true,
-    "latedef": "nofunc",
-    "newcap": false,
-    "noarg": true,
-    "sub": true,
-    "undef": false,
-    "unused": "var",
-    "boss": true,
-    "eqnull": true,
-    "node": true,
-    "-W086": true
-  });
-
-  return gulp.src([
-    'index.js',
-    'lib/*.js',
-    'test/*.js'
-  ]).pipe(lint)
-  .pipe(jshint.reporter('jshint-stylish'));
-
-});
 
 gulp.task('test', function() {
 
@@ -45,4 +17,4 @@ gulp.task('test', function() {
 
 });
 
-gulp.task('default', ['lint', 'test']);
+gulp.task('default', ['test']);
