@@ -1,34 +1,32 @@
-/************************ DEPENDENCIES *****************************/
-var shim = require('es6-shim'),
-    util = require('util'),
-    bunyan = require('bunyan'),
-    One = require('./lib/one'),
-    Helpers = require('./lib/helpers');
+'use strict';
 
-var proto = NPR.prototype;
-exports = module.exports = NPR;
+const bunyan = require('bunyan'),
+      One = require('./lib/one'),
+      Helpers = require('./lib/helpers');
 
-/************************* CONSTRUCTOR ****************************/
-function NPR(config) {
+class NPR {
 
-  if (! (this instanceof NPR))
-    return new NPR(config);
+  constructor(config) {
 
-  util._extend(this, config || {});
+    Object.assign(this, config || {});
 
-  if (! this.log)
-    this.log = bunyan.createLogger({name: 'npr'});
+    if (! this.log)
+      this.log = bunyan.createLogger({name: 'npr'});
 
-  this.one = One({
-    log: this.log.child({ module: 'one' })
-  });
+    this.one = new One({
+      log: this.log.child({ module: 'one' })
+    });
+
+  }
+
+  static Helpers() {
+    return Helpers;
+  }
+
+  static One() {
+    return One;
+  }
 
 }
 
-/**************************** STATIC ******************************/
-NPR.Helpers = Helpers;
-NPR.One = One;
-
-/*************************** DEFAULTS *****************************/
-proto.one = false;
-proto.log = false;
+exports = module.exports = NPR;
