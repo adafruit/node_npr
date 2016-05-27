@@ -5,13 +5,13 @@ process.env.NODE_ENV = 'test';
 
 describe('NPR One', function() {
 
-  this.timeout(10000);
-
   describe('Init', function() {
+
+    this.timeout(15000);
 
     it('should create a client', function(done) {
 
-      npr = NPR();
+      npr = new NPR();
 
       npr.one.init()
         .then(function() { done(); })
@@ -23,38 +23,19 @@ describe('NPR One', function() {
 
   describe('Authorization', function() {
 
-    it('should get an access token using password grant type', function(done) {
-
-      npr.one.authorization
-       .createToken({
-          grant_type: 'password',
-          client_id: process.env.CLIENT_ID,
-          client_secret: process.env.CLIENT_SECRET,
-          username: process.env.NPR_USERNAME,
-          password: process.env.NPR_PASSWORD
-        })
-       .then(function(res) {
-
-         if(! res.access_token)
-           return done('missing access token');
-
-         npr.one.setAccessToken(res.access_token);
-
-         done();
-
-       }).catch(done);
-
+    it('should set access token without error', function(done) {
+      npr.one.setAccessToken(process.env.NPR_ACCESS_TOKEN).then(function() { return done(); }).catch(done);
     });
 
   });
 
   describe('Listening', function() {
 
+    this.timeout(15000);
+
     it('should get channels', function(done) {
 
-      npr.one.listening
-       .getChannels()
-       .then(function(res) {
+      npr.one.listening.getChannels().then(function(res) {
 
          if(! res.items.length)
            return done('missing channels');
@@ -67,9 +48,7 @@ describe('NPR One', function() {
 
     it('should get history', function(done) {
 
-      npr.one.listening
-       .getHistory()
-       .then(function(res) {
+      npr.one.listening.getHistory().then(function(res) {
 
          if(! res.items.length)
            return done('missing history');
